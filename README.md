@@ -1,5 +1,5 @@
 # riscv-quickdev
-quidek dev setups for RISCV
+quick dev setups for RISCV
 
 ## Setting up WSL/Ubuntu for quickdev
 
