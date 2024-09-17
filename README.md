@@ -104,7 +104,7 @@ quick dev setups for RISCV
 8. Create a minimal root filesystem
     ```bash
       cd ~ 
-      dd if=/dev/zero of=root.bin bs=1M count=64 
+      dd if=/dev/zero of=root.bin bs=1M count=4 
       mkfs.ext2 -F root.bin 
       debugfs -w root.bin -R "mkdir /bin" 
       debugfs -w root.bin -R "write busybox-${BUSYBOX_VERSION}/busybox /bin/busybox" 
@@ -120,8 +120,8 @@ quick dev setups for RISCV
       debugfs -w root.bin -R "mkdir /usr/lib" 
       debugfs -w root.bin -R "mkdir /usr/sbin" 
       debugfs -w root.bin -R "ln /bin/busybox /sbin/init" 
-      debugfs -w root.bin -R "ln /bin/busybox /bin/sh" 
-      echo "#!/bin/sh\n/bin/busybox --install -s \nexit 0" > /tmp/rcS 
+      debugfs -w root.bin -R "symlink /bin/busybox /bin/sh" 
+      echo "#!/bin/busybox sh\n/bin/busybox --install -s \nexit 0" > /tmp/rcS 
       chmod 755 /tmp/rcS
       debugfs -w root.bin -R "write /tmp/rcS /etc/init.d/rcS"
     ```
