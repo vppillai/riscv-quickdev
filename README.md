@@ -54,7 +54,7 @@ quick dev setups for RISCV
       apt update
       apt upgrade
       ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime
-      DEBIAN_FRONTEND=noninteractive apt install -y build-essential wget libmpc-dev flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev libpixman-1-dev git zlib1g-dev ninja-build python3-venv 
+      DEBIAN_FRONTEND=noninteractive apt install -y build-essential wget libmpc-dev flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev libpixman-1-dev git zlib1g-dev ninja-build python3-venv e2fsprogs
    ```
 5. Setup the toolchain from : https://github.com/riscv-collab/riscv-gnu-toolchain/releases
     ```bash
@@ -103,19 +103,24 @@ quick dev setups for RISCV
 
 8. Create a minimal root filesystem
     ```bash
-        cd ~
-        dd if=/dev/zero of=root.bin bs=1M count=64
-        mkfs.ext2 -F root.bin
+       cd ~
+       dd if=/dev/zero of=root.bin bs=1M count=64
+       mkfs.ext2 -F root.bin
 
-        mkdir mnt
-        mount -o loop root.bin mnt
-        cd mnt 
-        mkdir -p bin etc dev lib proc sbin tmp usr usr/bin usr/lib usr/sbin
-        cp ~/busybox-${BUSYBOX_VERSION}/busybox bin
-        ln -s ../bin/busybox sbin/init
-        ln -s ../bin/busybox bin/sh
-        cd ..
-        umount mnt
+       debugfs -w root.bin -R "mkdir /bin"
+       debugfs -w root.bin -R "write ~/busybox-${BUSYBOX_VERSION}/busybox /bin/busybox"
+       debugfs -w root.bin -R "mkdir /sbin"
+       debugfs -w root.bin -R "mkdir /etc"
+       debugfs -w root.bin -R "mkdir /dev"
+       debugfs -w root.bin -R "mkdir /lib"
+       debugfs -w root.bin -R "mkdir /proc"
+       debugfs -w root.bin -R "mkdir /tmp"
+       debugfs -w root.bin -R "mkdir /usr"
+       debugfs -w root.bin -R "mkdir /usr/bin"
+       debugfs -w root.bin -R "mkdir /usr/lib"
+       debugfs -w root.bin -R "mkdir /usr/sbin"
+       debugfs -w root.bin -R "ln /bin/busybox /sbin/init"
+       debugfs -w root.bin -R "ln /bin/busybox /bin/sh" 
     ```
 
 8. Build and install latest QEMU
