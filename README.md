@@ -54,7 +54,7 @@ quick dev setups for RISCV
       apt update
       apt upgrade
       ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime
-      DEBIAN_FRONTEND=noninteractive apt install build-essential wget libmpc-dev flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev libpixman-1-dev git zlib1g-dev ninja-build python3-venv -y
+      DEBIAN_FRONTEND=noninteractive apt install -y build-essential wget libmpc-dev flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev libpixman-1-dev git zlib1g-dev ninja-build python3-venv 
    ```
 5. Setup the toolchain from : https://github.com/riscv-collab/riscv-gnu-toolchain/releases
     ```bash
