@@ -103,24 +103,27 @@ quick dev setups for RISCV
 
 8. Create a minimal root filesystem
     ```bash
-       cd ~
-       dd if=/dev/zero of=root.bin bs=1M count=64
-       mkfs.ext2 -F root.bin
-
-       debugfs -w root.bin -R "mkdir /bin"
-       debugfs -w root.bin -R "write ~/busybox-${BUSYBOX_VERSION}/busybox /bin/busybox"
-       debugfs -w root.bin -R "mkdir /sbin"
-       debugfs -w root.bin -R "mkdir /etc"
-       debugfs -w root.bin -R "mkdir /dev"
-       debugfs -w root.bin -R "mkdir /lib"
-       debugfs -w root.bin -R "mkdir /proc"
-       debugfs -w root.bin -R "mkdir /tmp"
-       debugfs -w root.bin -R "mkdir /usr"
-       debugfs -w root.bin -R "mkdir /usr/bin"
-       debugfs -w root.bin -R "mkdir /usr/lib"
-       debugfs -w root.bin -R "mkdir /usr/sbin"
-       debugfs -w root.bin -R "ln /bin/busybox /sbin/init"
-       debugfs -w root.bin -R "ln /bin/busybox /bin/sh" 
+      cd ~ 
+      dd if=/dev/zero of=root.bin bs=1M count=64 
+      mkfs.ext2 -F root.bin 
+      debugfs -w root.bin -R "mkdir /bin" 
+      debugfs -w root.bin -R "write busybox-${BUSYBOX_VERSION}/busybox /bin/busybox" 
+      debugfs -w root.bin -R "mkdir /sbin" 
+      debugfs -w root.bin -R "mkdir /etc" 
+      debugfs -w root.bin -R "mkdir /etc/init.d" 
+      debugfs -w root.bin -R "mkdir /dev" 
+      debugfs -w root.bin -R "mkdir /lib" 
+      debugfs -w root.bin -R "mkdir /proc" 
+      debugfs -w root.bin -R "mkdir /tmp" 
+      debugfs -w root.bin -R "mkdir /usr" 
+      debugfs -w root.bin -R "mkdir /usr/bin" 
+      debugfs -w root.bin -R "mkdir /usr/lib" 
+      debugfs -w root.bin -R "mkdir /usr/sbin" 
+      debugfs -w root.bin -R "ln /bin/busybox /sbin/init" 
+      debugfs -w root.bin -R "ln /bin/busybox /bin/sh" 
+      echo "#!/bin/sh\n/bin/busybox --install -s \nexit 0" > /tmp/rcS 
+      chmod 755 /tmp/rcS
+      debugfs -w root.bin -R "write /tmp/rcS /etc/init.d/rcS"
     ```
 
 8. Build and install latest QEMU
