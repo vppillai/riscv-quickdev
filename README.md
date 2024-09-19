@@ -69,9 +69,9 @@ quick dev setups for RISCV
       rm riscv64-elf-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
       
       # Linux toolchain:
-      wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.09.03/riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
-      tar xvf riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz -C /opt
-      rm riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
+      wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.09.03/riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
+      tar xvf riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz -C /opt
+      rm riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
       
       # Add the toolchain to the PATH
       export PATH=$PATH:/opt/riscv/bin 
