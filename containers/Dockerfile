@@ -27,9 +27,9 @@ RUN cd ~ && mkdir -p /opt &&\
 
 # Setup the Linux toolchain:
 RUN cd ~ && mkdir -p /opt &&\
-    wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.09.03/riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz &&\
-    tar xvf riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz -C /opt &&\
-    rm riscv64-glibc-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
+    wget https://github.com/riscv-collab/riscv-gnu-toolchain/releases/download/2024.09.03/riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz &&\
+    tar xvf riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz -C /opt &&\
+    rm riscv64-musl-${OS_VERSION}-llvm-${TOOLCHAIN_VERSION}.tar.gz
 
 # Download Linux kernel source and build it
 RUN cd ~ && wget https://github.com/torvalds/linux/archive/refs/tags/v${KERNEL_VERSION}.tar.gz &&\
