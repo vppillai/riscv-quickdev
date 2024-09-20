@@ -1,6 +1,3 @@
-# riscv-quickdev
-quick dev setups for RISCV
-
 ## Setting up WSL/Ubuntu for quickdev
 
 1. Ensure `/etc/wsl.conf` has `systemd` enabled
