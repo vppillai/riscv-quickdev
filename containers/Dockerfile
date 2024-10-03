@@ -91,3 +91,10 @@ qemu-system-riscv64 -nographic -machine virt \
 EOF
 RUN chmod 755 ~/quickstart.sh
 
+# download and build buildroot
+RUN cd ~ && wget https://buildroot.org/downloads/buildroot-${BUILDROOT_VERSION}.tar.gz &&\
+    tar xvf buildroot-${BUILDROOT_VERSION}.tar.gz &&\
+    rm buildroot-${BUILDROOT_VERSION}.tar.gz &&\
+    cd buildroot-${BUILDROOT_VERSION} &&\
+    make qemu_riscv64_virt_defconfig &&\
+    make -j $(nproc)
