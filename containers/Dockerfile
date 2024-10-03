@@ -5,6 +5,7 @@ ENV OS_VERSION=ubuntu-22.04
 ENV KERNEL_VERSION=6.11
 ENV BUSYBOX_VERSION=1.36.1
 ENV QEMU_VERSION=9.1.0
+ENV BUILDROOT_VERSION=2024.02.6
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH=$PATH:/opt/riscv/bin 
@@ -12,12 +13,11 @@ ENV PATH=$PATH:/opt/qemu/bin
 
 
 # install dependencies
-RUN apt update && apt upgrade -y
-RUN apt upgrade
-RUN ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime
-RUN apt install -y build-essential wget libmpc-dev \
-                                                  flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev \
-                                                  libpixman-1-dev git zlib1g-dev ninja-build python3-venv e2fsprogs
+RUN apt update && apt upgrade -y && RUN apt upgrade && \
+    ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime && \
+    apt install -y build-essential wget libmpc-dev \
+                   flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev \
+                   libpixman-1-dev git zlib1g-dev ninja-build python3-venv e2fsprogs
 
 # Setup the elf toolchain
 RUN cd ~ && mkdir -p /opt &&\
