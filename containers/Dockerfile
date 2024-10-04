@@ -14,7 +14,7 @@ ENV PATH=$PATH:/opt/qemu/bin
 
 # install dependencies
 RUN apt update && apt upgrade -y && apt upgrade && \
-    ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime &&
+    ln -fs /usr/share/zoneinfo/America/Vancouver /etc/localtime && \
     apt install -y build-essential wget libmpc-dev \
                    flex bison bc libncurses-dev file libglib2.0-dev libfdt-dev \
                    libpixman-1-dev git zlib1g-dev ninja-build python3-venv e2fsprogs
